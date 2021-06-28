@@ -14,47 +14,50 @@ namespace WebApplication10.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
-        private readonly IUniversityDbContext _dbContext;
+        private readonly IFacultyService _facultyService;
+        private readonly ICourseService _courseService;
 
-        public StudentController(IStudentService studentService, IUniversityDbContext dbContext)
+        public StudentController(
+            IStudentService studentService, 
+            ICourseService courseService,
+            IFacultyService facultyService
+            )
         {
             _studentService = studentService;
-            _dbContext = dbContext;
+            _courseService = courseService;
+            _facultyService = facultyService;
         }
 
         // GET: StudentController
         public ActionResult Index()
         {
-            return View(_studentService.GetAll());
+            var students = _studentService.GetAll();
+            foreach (var item in students)
+            {
+                item.Course = _courseService.Get(item.Course.Id);
+                item.Faculty = _facultyService.Get(item.Faculty.Id);
+            }
+
+            return View(students);
         }
-
-        public ActionResult CourseInStudent(Guid id)
-        {
-            var stdudent = _dbContext.Courses.Where(x => x.Id == id);
-            return View(stdudent);
-        }
-
-
-        public ActionResult FacultyInStudent(Guid id)
-        {
-            var stdudent = _dbContext.Faculties.Where(x => x.Id == id);
-            return View(stdudent);
-        }
-
         // GET: StudentController/Details/5
         public ActionResult Details(Guid id)
         {
-            return View(_studentService.Get(id));
+            var st = _studentService.Get(id);
+            st.Course = _courseService.Get(st.Course.Id);
+            st.Faculty = _facultyService.Get(st.Faculty?.Id);
+            return View(st);
         }
 
         // GET: StudentController/Create
         public ActionResult Create()
         {
-            ViewBag.Courses = new SelectList(_dbContext.Courses, "Id", "Name");
-
-            if (_dbContext.Faculties.Count > 0)
+            var allCourses = _courseService.GetAll();
+            ViewBag.Courses = new SelectList(allCourses, "Id", "Name");
+            var faculties = _facultyService.GetAll();
+            if (faculties.Count > 0)
             {
-                ViewBag.Faculties = new SelectList(_dbContext.Faculties, "Id", "Name");
+                ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
             }
 
             return View();
@@ -81,8 +84,8 @@ namespace WebApplication10.Controllers
         // GET: StudentController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            ViewBag.Courses = new SelectList(_dbContext.Courses, "Id", "Name");
-            ViewBag.Faculties = new SelectList(_dbContext.Faculties, "Id", "Name");
+            ViewBag.Courses = new SelectList(_courseService.GetAll(), "Id", "Name");
+            ViewBag.Faculties = new SelectList(_facultyService.GetAll(), "Id", "Name");
 
             return View(_studentService.Get(id));
         }

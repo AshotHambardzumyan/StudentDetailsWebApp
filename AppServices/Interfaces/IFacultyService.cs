@@ -13,7 +13,7 @@ namespace AppServices.Interfaces
 
         void Update(Faculty faculty);
 
-        Faculty Get(Guid id);
+        Faculty Get(Guid? id);
 
         List<Faculty> GetAll();
     }

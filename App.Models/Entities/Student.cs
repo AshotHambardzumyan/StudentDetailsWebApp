@@ -21,8 +21,8 @@ namespace App.Models.Entities
         public Guid Id { get; set; }
 
         [Required]
-        public Course Courses { get; set; }
+        public Course Course { get; set; }
 
-        public Faculty Faculties { get; set; }
+        public Faculty Faculty { get; set; }
     }
 }

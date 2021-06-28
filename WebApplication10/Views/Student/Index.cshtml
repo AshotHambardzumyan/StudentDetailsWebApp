@@ -25,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Courses)
+                @Html.DisplayNameFor(model => model.Course)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Faculties)
+                @Html.DisplayNameFor(model => model.Faculty)
             </th>
             @*<th>Course</th>*@
             <th></th>
@@ -51,14 +51,14 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    <a class="btn btn-success" @Html.ActionLink("Course", "CourseInStudent", new { id = item.Courses.Id })></a>
+                    <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Details","Course", new { id = item.Course.Id })></a>
                 </td>
                 <td>
-                    @if (item.Faculties != null)
+                    @if (item.Faculty != null)
                     {
-                        if (item.Faculties.Id != Guid.Empty)
+                        if (item.Faculty.Id != Guid.Empty)
                         {
-                            <a class="btn btn-success" @Html.ActionLink("Faculty", "FacultyInStudent", new { id = item.Faculties.Id })></a>
+                            <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Details","Faculty", new { id = item.Faculty.Id })></a>
                         }
                     }
                 </td>

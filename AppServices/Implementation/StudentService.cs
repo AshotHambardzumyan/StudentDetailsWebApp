@@ -38,9 +38,12 @@ namespace AppServices.Implementation
 
             int courseIndex = _dbContext.Students.IndexOf(oldStudent);
 
-            var c = _dbContext.Courses.Where(x => x.Id == student.Courses.Id);
+            var course = _dbContext.Courses.FirstOrDefault(x => x.Id == student.Course.Id);
 
-            student.Courses = c.FirstOrDefault();
+            student.Course = course;
+            var faculty = _dbContext.Faculties.FirstOrDefault(x => x.Id == student.Faculty.Id);
+
+            student.Faculty = faculty;
 
             _dbContext.Students[courseIndex] = student;
         }

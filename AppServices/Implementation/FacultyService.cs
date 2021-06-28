@@ -22,7 +22,7 @@ namespace AppServices.Implementation
             _dbContext.Faculties.Add(faculty);
         }
 
-        public Faculty Get(Guid id)
+        public Faculty Get(Guid? id)
         {
             return _dbContext.Faculties.FirstOrDefault(x => x.Id == id && x.Status);
         }
@@ -36,9 +36,9 @@ namespace AppServices.Implementation
         {
             var oldFaculty = Get(faculty.Id);
 
-            int courseIndex = _dbContext.Faculties.IndexOf(oldFaculty);
+            int facultyIndex = _dbContext.Faculties.IndexOf(oldFaculty);
 
-            _dbContext.Faculties[courseIndex] = faculty;
+            _dbContext.Faculties[facultyIndex] = faculty;
         }
     }
 }
