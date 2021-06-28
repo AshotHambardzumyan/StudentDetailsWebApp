@@ -24,7 +24,8 @@ namespace AppServices.Implementation
 
         public Faculty Get(Guid? id)
         {
-            return _dbContext.Faculties.FirstOrDefault(x => x.Id == id && x.Status);
+            var faculty = _dbContext.Faculties.FirstOrDefault(x => x.Id == id && x.Status);
+            return faculty;
         }
 
         public List<Faculty> GetAll()
