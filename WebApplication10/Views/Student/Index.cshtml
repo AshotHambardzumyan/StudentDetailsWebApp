@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
+               <b>Course Name</b>
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Course)
             </th>
             <th>
@@ -37,37 +40,40 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SureName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Details","Course", new { id = item.Course.Id })></a>
-                </td>
-                <td>
-                    @if (item.Faculty != null)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+            <td>
+                <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Details", "Course", new { id = item.Course.Id })></a>
+            </td>
+            <td>
+                @if (item.Faculty != null)
+                {
+                    if (item.Faculty.Id != Guid.Empty)
                     {
-                        if (item.Faculty.Id != Guid.Empty)
-                        {
-                            <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Details","Faculty", new { id = item.Faculty.Id })></a>
-                        }
+                        <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Details", "Faculty", new { id = item.Faculty.Id })></a>
                     }
-                </td>
-                <td>
-                    <a class="btn btn-dark" @Html.ActionLink("Edit", "Edit", new { id = item.Id })></a>
-                    <a class="btn btn-info" @Html.ActionLink("Details", "Details", new { id = item.Id })></a>
-                    <a class="btn btn-danger" @Html.ActionLink("Delete", "Delete", new { id = item.Id })></a>
-                </td>
-            </tr>
+                }
+            </td>
+            <td>
+                <a class="btn btn-dark" @Html.ActionLink("Edit", "Edit", new { id = item.Id })></a>
+                <a class="btn btn-info" @Html.ActionLink("Details", "Details", new { id = item.Id })></a>
+                <a class="btn btn-danger" @Html.ActionLink("Delete", "Delete", new { id = item.Id })></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
