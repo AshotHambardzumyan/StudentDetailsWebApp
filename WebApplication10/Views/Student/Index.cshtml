@@ -8,10 +8,8 @@
 
 <p>
     <a asp-action="Create" class="btn btn-outline-info">Create New Student</a>
+
 </p>
-<div>
-    <a asp-action="Index" class="btn btn-info">Refresh</a>
-</div>
 <table class="table">
     <thead>
         <tr>
@@ -60,18 +58,14 @@
                 @Html.DisplayFor(modelItem => item.Course.Name)
             </td>
             <td>
-                <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Index", "Student", new { id = item.Id , type = "Course"})></a>                
-            </td>
-
-            @*<td>
                 <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Details", "Course", new { id = item.Course.Id })></a>
-            </td>*@
+            </td>
             <td>
                 @if (item.Faculty != null)
                 {
                     if (item.Faculty.Id != Guid.Empty)
                     {
-                        <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Index", "Student", new { id = item.Id, type = "Faculty" })></a>
+                        <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Details", "Faculty", new { id = item.Faculty.Id })></a>
                     }
                 }
             </td>

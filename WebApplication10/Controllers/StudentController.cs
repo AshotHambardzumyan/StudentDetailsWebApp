@@ -18,7 +18,7 @@ namespace WebApplication10.Controllers
         private readonly ICourseService _courseService;
 
         public StudentController(
-            IStudentService studentService,
+            IStudentService studentService, 
             ICourseService courseService,
             IFacultyService facultyService
             )
@@ -29,28 +29,15 @@ namespace WebApplication10.Controllers
         }
 
         // GET: StudentController
-        public ActionResult Index(Guid id, string type)
+        public ActionResult Index()
         {
-            List<Student> students = _studentService.GetAll();
+            var students = _studentService.GetAll();
             foreach (var item in students)
             {
                 item.Course = _courseService.Get(item.Course.Id);
                 item.Faculty = _facultyService.Get(item.Faculty.Id);
             }
-            
-            if(id != Guid.Empty && type == "Course")
-            {
-                var courseID = _studentService.Get(id).Course.Id;
-                var facultyID = _studentService.Get(id).Faculty.Id;
-                students = students.Where(x => x.Course.Id == courseID).Where(x => x.Faculty.Id == facultyID).ToList();
-            }
 
-            if(id != Guid.Empty && type == "Faculty")
-            {                
-                var facultyID = _studentService.Get(id).Faculty.Id;
-                students = students.Where(x => x.Faculty.Id == facultyID).ToList();
-            }
-            
             return View(students);
         }
         // GET: StudentController/Details/5
