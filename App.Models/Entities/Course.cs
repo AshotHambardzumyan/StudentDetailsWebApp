@@ -13,7 +13,11 @@ namespace App.Models.Entities
         [MaxLength(5)]
         [MinLength(1)]
         public string Name { get; set; }
+
         public Guid Id { get; set; }
+
         public bool Status { get; set; }
+
+        public Faculty Faculty { get; set; }
     }
 }

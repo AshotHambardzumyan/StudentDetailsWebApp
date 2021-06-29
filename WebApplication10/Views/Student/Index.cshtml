@@ -9,6 +9,8 @@
 <p>
     <a asp-action="Create" class="btn btn-outline-info">Create New Student</a>
 
+    <a asp-controller="Student" class="btn btn-outline-info">Back To Student List</a>
+
 </p>
 <table class="table">
     <thead>
@@ -26,55 +28,51 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-               <b>Course Name</b>
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Course)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Faculty)
             </th>
-            @*<th>Course</th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SureName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Course.Name)
-            </td>
-            <td>
-                <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Details", "Course", new { id = item.Course.Id })></a>
-            </td>
-            <td>
-                @if (item.Faculty != null)
-                {
-                    if (item.Faculty.Id != Guid.Empty)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SureName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Course.Name)
+                    </td>*@
+                <td>
+                    @Html.ActionLink(item.Course.Name, "Index", new { id = item.Id }, new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @if (item.Faculty != null)
                     {
-                        <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Details", "Faculty", new { id = item.Faculty.Id })></a>
+                        if (item.Faculty.Id != Guid.Empty)
+                        {
+                            @Html.ActionLink(item.Faculty.Name, "Index", new { id = item.Id }, new { @class = "btn btn-success" })
+                        }
                     }
-                }
-            </td>
-            <td>
-                <a class="btn btn-dark" @Html.ActionLink("Edit", "Edit", new { id = item.Id })></a>
-                <a class="btn btn-info" @Html.ActionLink("Details", "Details", new { id = item.Id })></a>
-                <a class="btn btn-danger" @Html.ActionLink("Delete", "Delete", new { id = item.Id })></a>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-dark" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
         }
     </tbody>
 </table>

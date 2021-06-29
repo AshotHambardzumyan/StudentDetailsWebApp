@@ -52,5 +52,21 @@ namespace AppServices.Implementation
         {
             _dbContext.Students.Remove(Get(id));
         }
+
+        public List<Student> GetSameStudents(Guid id)
+        {
+            List<Student> SameStudents = new List<Student>();
+
+            Student student = Get(id);
+
+            foreach (var item in GetAll())
+            {
+                if ((item.Course == student.Course) && (item.Faculty == student.Faculty))
+                {
+                    SameStudents.Add(item);
+                }
+            }
+            return SameStudents;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace WebApplication10.Controllers
         private readonly ICourseService _courseService;
 
         public StudentController(
-            IStudentService studentService, 
+            IStudentService studentService,
             ICourseService courseService,
             IFacultyService facultyService
             )
@@ -29,17 +29,36 @@ namespace WebApplication10.Controllers
         }
 
         // GET: StudentController
-        public ActionResult Index()
+        public ActionResult Index(Guid id)
         {
+            if (id != Guid.Empty)
+            {
+                try
+                {
+                    return View(_studentService.GetSameStudents(id));
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+
             var students = _studentService.GetAll();
+
             foreach (var item in students)
             {
                 item.Course = _courseService.Get(item.Course.Id);
-                item.Faculty = _facultyService.Get(item.Faculty.Id);
+
+                if (item.Faculty != null)
+                {
+                    item.Faculty = _facultyService.Get(item.Faculty.Id);
+                }
             }
 
             return View(students);
         }
+
+
         // GET: StudentController/Details/5
         public ActionResult Details(Guid id)
         {
@@ -55,6 +74,7 @@ namespace WebApplication10.Controllers
             var allCourses = _courseService.GetAll();
             ViewBag.Courses = new SelectList(allCourses, "Id", "Name");
             var faculties = _facultyService.GetAll();
+
             if (faculties.Count > 0)
             {
                 ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
