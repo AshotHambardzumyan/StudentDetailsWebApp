@@ -29,7 +29,7 @@ namespace WebApplication10.Controllers
         }
 
         // GET: StudentController
-        public ActionResult Index(Guid id)
+         public ActionResult Index(Guid id)
         {
             if (id != Guid.Empty)
             {
@@ -57,7 +57,6 @@ namespace WebApplication10.Controllers
 
             return View(students);
         }
-
 
         // GET: StudentController/Details/5
         public ActionResult Details(Guid id)
