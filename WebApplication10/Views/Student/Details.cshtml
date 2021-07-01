@@ -17,18 +17,6 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Course)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Course)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Faculty)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Faculty)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SureName)
         </dt>
         <dd class="col-sm-10">
@@ -46,9 +34,21 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Course)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Course)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Faculty)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Faculty)
+        </dd>
     </dl>
 </div>
 <div>
-    <a class="btn btn-dark" @Html.ActionLink("Edit", "Edit", new { id = Model.Id })></a> |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-dark" })
     <a asp-action="Index" class="btn btn-info">Back to List</a>
 </div>

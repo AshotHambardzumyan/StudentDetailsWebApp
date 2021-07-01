@@ -1,4 +1,4 @@
-﻿@model IEnumerable<App.Models.Entities.Student>
+@model IEnumerable<App.Models.Entities.Student>
 
 @{
     ViewData["Title"] = "Students";
@@ -8,11 +8,12 @@
 
 <p>
     <a asp-action="Create" class="btn btn-outline-info">Create New Student</a>
-
 </p>
+
 <div>
-    <a asp-action="Index" class="btn btn-info">Refresh</a>
+    <a class="btn btn-success" href="/Student/Index">Back To Student List</a>
 </div>
+
 <table class="table">
     <thead>
         <tr>
@@ -29,15 +30,11 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                <b>Course Name</b>
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Course)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Faculty)
             </th>
-            @*<th>Course</th>*@
             <th></th>
         </tr>
     </thead>
@@ -57,24 +54,25 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Course.Name)
+                    </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Course.Name)
+                    @Html.ActionLink(item.Course.Name, "Index", new { id = item.Id }, new { @class = "btn btn-success" })
                 </td>
-                <td>
-                    <a class="btn btn-success" @Html.ActionLink(item.Course.Name, "Index", "Student", new { id = item.Id, type = "Course" })></a>
                 <td>
                     @if (item.Faculty != null)
                     {
                         if (item.Faculty.Id != Guid.Empty)
                         {
-                            <a class="btn btn-success" @Html.ActionLink(item.Faculty.Name, "Index", "Student", new { id = item.Id, type = "Faculty" })></a>
+                            @Html.ActionLink(item.Faculty.Name, "Index", new { id = item.Id }, new { @class = "btn btn-success" })
                         }
                     }
                 </td>
                 <td>
-                    <a class="btn btn-dark" @Html.ActionLink("Edit", "Edit", new { id = item.Id })></a>
-                    <a class="btn btn-info" @Html.ActionLink("Details", "Details", new { id = item.Id })></a>
-                    <a class="btn btn-danger" @Html.ActionLink("Delete", "Delete", new { id = item.Id })></a>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-dark" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

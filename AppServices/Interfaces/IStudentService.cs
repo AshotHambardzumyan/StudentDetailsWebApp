@@ -18,5 +18,7 @@ namespace AppServices.Interfaces
         List<Student> GetAll();
 
         void Delete(Guid id);
+
+        List<Student> GetSameStudents(Guid id);
     }
 }
